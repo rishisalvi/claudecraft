@@ -3580,7 +3580,7 @@ function travel(d,tx,tz,how){if(traveling)return;traveling=true;
   else if(how==='exit'||how==='respawn'){goToSpawn();if(how==='exit')toast('You return to the Overworld.',3);}
   initialLoad(P.x,P.z);fixSpawnY();
   ov.style.display='none';traveling=false;if(how!=='respawn')toast('You entered '+DNAME[d]+'.',2.5);save();}
-function portalTick(dt){if(P.dead||traveling)return;if(P.portalCD>0)P.portalCD-=dt;
+function portalTick(dt){if(P.dead||traveling)return;if(!(P.portalCD>0))P.portalCD=0;else P.portalCD-=dt;if(!Number.isFinite(P.portalT))P.portalT=0;
   const fx=Math.floor(P.x),fz=Math.floor(P.z),b1=getR(fx,Math.floor(P.y+.2),fz),b2=getR(fx,Math.floor(P.y+1.2),fz);
   const inP=b1===PORTAL||b2===PORTAL||[[.3,0],[-.3,0],[0,.3],[0,-.3]].some(([ox,oz])=>getR(Math.floor(P.x+ox),Math.floor(P.y+.2),Math.floor(P.z+oz))===PORTAL||getR(Math.floor(P.x+ox),Math.floor(P.y+1.2),Math.floor(P.z+oz))===PORTAL),inV=b1===VOID_PORTAL||getR(fx,Math.floor(P.y-.05),fz)===VOID_PORTAL,inG=b1===VOID_GATEWAY||b2===VOID_GATEWAY;
   const ov=$('portalov');
